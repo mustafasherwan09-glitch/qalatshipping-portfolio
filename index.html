@@ -18,8 +18,8 @@ const CONFIG = {
   instagram: 'qalat.shipping',
   instagramFollowers: 6900,
   monthlyViews: 118000,       // Instagram views in the last 30 days
-  mapLink: '[PASTE FULL GOOGLE MAPS LINK]', // Google Maps "Share → Copy link"
-  mapEmbed: '',               // optional: Google Maps "Share → Embed a map" src URL (shows a live map)
+  mapLink: 'https://www.google.com/maps?q=36.2004780,44.0392230',              // office pin (40m St, Brayati, Erbil)
+  mapEmbed: 'https://www.google.com/maps?q=36.2004780,44.0392230&z=16&output=embed', // live map inside the contact card ('' = styled card only)
   calcMaxUSD: 100000,         // max amount accepted by the calculator
   defaultLang: 'ku'           // 'ku' | 'ar' | 'en'
 };
@@ -102,11 +102,23 @@ const SIZE_CHART = {
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": "Store",
   "name": "Qalat Shipping",
   "alternateName": ["قەڵات شیپینگ", "قلات شيبينغ"],
   "url": "https://qalatshipping.com/",
   "logo": "https://qalatshipping.com/assets/logo-512.jpg",
+  "image": "https://qalatshipping.com/assets/og-image.jpg",
+  "telephone": "+9647746646565",
+  "paymentAccepted": "Cash on delivery",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "40m Street, Brayati, near Pharma",
+    "addressLocality": "Erbil",
+    "addressRegion": "Kurdistan Region",
+    "addressCountry": "IQ"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": 36.2004780, "longitude": 44.0392230 },
+  "hasMap": "https://www.google.com/maps?q=36.2004780,44.0392230",
   "slogan": "Shop SHEIN, Delivered by Qalat",
   "description": "SHEIN shopping and shipping service with free delivery across Iraq and Kurdistan.",
   "areaServed": { "@type": "Country", "name": "Iraq" },
@@ -541,7 +553,15 @@ a.trust-item:hover .trust-num { color: var(--terra); }
 .map-card h3 { color: var(--cream); font-size: 1.35rem; }
 .map-card p { color: rgba(247, 243, 236, .82); }
 .map-card .btn { align-self: flex-start; margin-top: 8px; }
-.map-card iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; z-index: 1; }
+.map-card iframe { position: absolute; inset: 0 0 auto; width: 100%; height: 250px; border: 0; z-index: 1; background: var(--navy-2); }
+.map-card.has-embed { padding-top: 278px; justify-content: flex-start; }
+.map-card.has-embed > .citadel { display: none; }
+.map-card.has-embed .map-pin { position: absolute; top: 222px; inset-inline-end: 24px; z-index: 2; margin: 0; }
+@media (min-width: 900px) {
+  .map-card.has-embed { padding-top: 330px; }
+  .map-card.has-embed iframe { height: 300px; }
+  .map-card.has-embed .map-pin { top: 272px; inset-inline-end: 36px; }
+}
 .contact-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; align-content: start; }
 .contact-item { display: flex; align-items: center; gap: 16px; padding: 18px 20px; border-radius: 22px; background: var(--paper); border: 1px solid var(--line); text-decoration: none; transition: border-color .2s, transform .2s; }
 a.contact-item:hover { border-color: rgba(30, 58, 95, .4); transform: translateY(-2px); }
@@ -1208,22 +1228,22 @@ const I18N = {
     "faq.1.q": "گەیاندن چەند ڕۆژ دەخایەنێت؟",
     "faq.1.a": "بە گشتی {range} ڕۆژ دەخایەنێت لە دوای تۆمارکردنی داواکارییەکەت. لە وەرزی داشکاندنە گەورەکاندا لەوانەیە کەمێک دوابکەوێت، بەڵام هەمیشە ئاگادارت دەکەینەوە.",
     "faq.2.q": "بۆ کام شار و ناوچانە دەگەیەنن؟",
-    "faq.2.a": "بۆ هەموو پارێزگاکانی عێراق و هەرێمی کوردستان؛ لە هەولێر، سلێمانی، دهۆک و هەڵەبجەوە تا کەرکووک، بەغدا، موسڵ و بەسرە. [تێبینی دەربارەی ناوچە تایبەتەکان لێرە زیاد بکە]",
+    "faq.2.a": "بۆ هەموو شارەکانی عێراق و هەرێمی کوردستان؛ لە هەولێر، سلێمانی، دهۆک و هەڵەبجەوە تا کەرکووک، بەغدا، موسڵ و بەسرە.",
     "faq.3.q": "پارەدان چۆنە؟ دەتوانم لە کاتی وەرگرتندا پارە بدەم؟",
-    "faq.3.a": "[ڕێگای پارەدانی خۆت لێرە بنووسە — بۆ نموونە: بڕێکی پێشەکی و باقییەکەی لە کاتی وەرگرتن / تەواوی پارەکە لە کاتی وەرگرتن / FIB / زەین کاش]",
+    "faq.3.a": "بەڵێ، تەنها پارەدان لە کاتی وەرگرتن هەیە؛ هیچ پارەیەکی پێشەکی نادەیت و کاتێک کاڵاکانت گەیشتنە دەستت پارەکە دەدەیت.",
     "faq.4.q": "گومرگ یان تێچووی زیادە هەیە؟",
-    "faq.4.a": "[سیاسەتی خۆت بنووسە — بۆ نموونە: هیچ تێچوویەکی شاراوە نییە؛ ئەو نرخەی پشتڕاستی دەکەینەوە نرخی کۆتاییە]",
+    "faq.4.a": "نەخێر، هیچ گومرگ و تێچوویەکی زیادە نییە؛ ئەو نرخەی بۆت پشتڕاست دەکەینەوە نرخی کۆتاییە.",
     "faq.5.q": "ئەگەر کاڵایەک نەمابوو (Sold out) چی دەبێت؟",
-    "faq.5.a": "[سیاسەتی خۆت بنووسە — بۆ نموونە: پێش داواکردن ئاگادارت دەکەینەوە، دەتوانیت جێگرەوەیەک هەڵبژێریت یان پارەی ئەو کاڵایەت بۆ دەگەڕێنینەوە]",
+    "faq.5.a": "پێش داواکردن ئاگادارت دەکەینەوە، دەتوانیت جێگرەوەیەک هەڵبژێریت یان پارەی ئەو کاڵایەت بۆ دەگەڕێنینەوە.",
     "faq.6.q": "ئەگەر قەبارەکە هەڵە بوو یان ویستم بیگەڕێنمەوە؟",
-    "faq.6.a": "[سیاسەتی گەڕاندنەوە و گۆڕینەوەی خۆت لێرە بنووسە]. بۆ ئەوەی ئەم کێشەیە ڕوو نەدات، پێش داواکردن سەیری ڕێبەری قەبارە بکە یان پرسیارمان لێ بکە.",
+    "faq.6.a": "دەتوانیت کاڵاکە بگەڕێنیتەوە و پارەکەت وەربگریتەوە. بۆ ئەوەی کاتت بەفیڕۆ نەچێت، پێش داواکردن سەیری ڕێبەری قەبارە بکە یان پرسیارمان لێ بکە.",
     "faq.7.q": "نرخ بە دینار چۆن هەژمار دەکرێت؟",
     "faq.7.a": "کۆی سەبەتەکەت لە SHEIN بە دۆلار (دوای هەموو داشکاندنەکان) لێکدەدەین لە نرخی تایبەتی خۆمان: {rateEq} دینار. بۆ نموونە سەبەتەیەکی 100 دۆلاری دەکاتە {rate100} دینار، گەیاندنیش خۆڕاییە.",
 
     "contact.title": "سەردانمان بکە یان پەیوەندیمان پێوە بکە",
     "contact.lead": "خێراترین ڕێگا بۆ داواکردن و پرسیارکردن واتسئاپە؛ بە خۆشحاڵییەوە وەڵامت دەدەینەوە.",
     "contact.office": "نووسینگەکەمان",
-    "contact.address": "[ناونیشانی نووسینگە، شار]",
+    "contact.address": "عێراق، هەولێر، شەقامی 40 مەتری، بەرایەتی، نزیک فارما",
     "contact.map": "لە Google Maps بیکەرەوە",
     "contact.wa": "واتسئاپ",
     "contact.ig": "ئینستاگرام",
@@ -1368,22 +1388,22 @@ const I18N = {
     "faq.1.q": "كم تستغرق مدة التوصيل؟",
     "faq.1.a": "عادةً {range} يوماً من تاريخ تثبيت الطلب. قد يتأخر قليلاً في مواسم التخفيضات الكبيرة، وسنبقيك على اطلاع دائماً.",
     "faq.2.q": "ما هي المدن التي توصلون إليها؟",
-    "faq.2.a": "نوصل إلى جميع محافظات العراق وإقليم كردستان؛ من أربيل والسليمانية ودهوك وحلبجة إلى كركوك وبغداد والموصل والبصرة. [أضف أي ملاحظة عن مناطق خاصة]",
+    "faq.2.a": "نوصل إلى جميع مدن العراق وإقليم كردستان؛ من أربيل والسليمانية ودهوك وحلبجة إلى كركوك وبغداد والموصل والبصرة.",
     "faq.3.q": "كيف يتم الدفع؟ هل يوجد دفع عند الاستلام؟",
-    "faq.3.a": "[اكتب طريقة الدفع لديك — مثلاً: عربون مقدّم والباقي عند الاستلام / الدفع كاملاً عند الاستلام / FIB / زين كاش]",
+    "faq.3.a": "نعم، الدفع عند الاستلام فقط؛ لا تدفع أي مبلغ مقدّماً، وتدفع عند وصول طلبيتك إلى يدك.",
     "faq.4.q": "هل توجد رسوم جمركية أو تكاليف إضافية؟",
-    "faq.4.a": "[اكتب سياستك — مثلاً: لا توجد أي رسوم مخفية، والسعر الذي نؤكده لك هو السعر النهائي]",
+    "faq.4.a": "لا، لا توجد أي رسوم جمركية أو تكاليف إضافية؛ السعر الذي نؤكده لك هو السعر النهائي.",
     "faq.5.q": "ماذا يحدث إذا نفدت إحدى القطع (Sold out)؟",
-    "faq.5.a": "[اكتب سياستك — مثلاً: نبلغك قبل الطلب لتختار بديلاً أو نعيد لك مبلغ تلك القطعة]",
+    "faq.5.a": "نبلغك قبل الطلب لتختار بديلاً، أو نعيد لك مبلغ تلك القطعة.",
     "faq.6.q": "ماذا لو كان المقاس خاطئاً أو أردت الإرجاع؟",
-    "faq.6.a": "[اكتب سياسة الإرجاع والاستبدال لديك]. لتجنّب ذلك، راجع دليل المقاسات أو اسألنا قبل الطلب.",
+    "faq.6.a": "يمكنك إرجاع القطعة واسترداد مبلغها. ولتوفير وقتك، راجع دليل المقاسات أو اسألنا قبل الطلب.",
     "faq.7.q": "كيف يُحسب السعر بالدينار؟",
     "faq.7.a": "نضرب مجموع سلتك في SHEIN بالدولار (بعد كل الخصومات) بسعر الصرف الخاص بنا: {rateEq} دينار. مثلاً سلة بقيمة 100 دولار تساوي {rate100} دينار، والشحن مجاني.",
 
     "contact.title": "زورونا أو تواصلوا معنا",
     "contact.lead": "واتساب هو أسرع طريقة للطلب أو الاستفسار — يسعدنا الرد عليك.",
     "contact.office": "مكتبنا",
-    "contact.address": "[عنوان المكتب، المدينة]",
+    "contact.address": "العراق، أربيل، شارع 40 متري، برايتي، قرب فارما",
     "contact.map": "افتح في خرائط Google",
     "contact.wa": "واتساب",
     "contact.ig": "إنستغرام",
@@ -1528,22 +1548,22 @@ const I18N = {
     "faq.1.q": "How long does delivery take?",
     "faq.1.a": "Usually {range} days from the moment your order is confirmed. During big SHEIN sales it can take a little longer — we’ll keep you updated every step of the way.",
     "faq.2.q": "Which cities do you deliver to?",
-    "faq.2.a": "Every province of Iraq and the Kurdistan Region — from Erbil, Sulaymaniyah, Duhok and Halabja to Kirkuk, Baghdad, Mosul and Basra. [Add any notes about special areas]",
+    "faq.2.a": "All cities in Iraq and the Kurdistan Region — from Erbil, Sulaymaniyah, Duhok and Halabja to Kirkuk, Baghdad, Mosul and Basra.",
     "faq.3.q": "How do I pay? Is cash on delivery available?",
-    "faq.3.a": "[Describe your payment method — e.g. a deposit upfront and the rest on delivery / full cash on delivery / FIB / Zain Cash]",
+    "faq.3.a": "Yes — we accept cash on delivery only. You pay nothing upfront; you simply pay when your order arrives.",
     "faq.4.q": "Are there customs or extra fees?",
-    "faq.4.a": "[State your policy — e.g. no hidden fees: the price we confirm is the final price]",
+    "faq.4.a": "No. There are no customs or extra fees — the price we confirm is the final price.",
     "faq.5.q": "What if an item is sold out?",
-    "faq.5.a": "[State your policy — e.g. we tell you before ordering so you can pick an alternative, or we refund that item]",
+    "faq.5.a": "We tell you before ordering so you can pick an alternative, or we refund that item.",
     "faq.6.q": "What if the size is wrong or I want to return something?",
-    "faq.6.a": "[Describe your return & exchange policy]. To avoid surprises, check our size guide or ask us before you order.",
+    "faq.6.a": "You can return the item and get a refund. To save time, check our size guide or ask us before you order.",
     "faq.7.q": "How is the IQD price calculated?",
     "faq.7.a": "We multiply your SHEIN basket total in USD (after all discounts) by our special rate: {rateEq} IQD. For example, a $100 basket comes to {rate100} IQD — and delivery is free.",
 
     "contact.title": "Visit us or get in touch",
     "contact.lead": "WhatsApp is the fastest way to order or ask a question — we’re happy to help.",
     "contact.office": "Our office",
-    "contact.address": "[Office address, city]",
+    "contact.address": "40m Street, Brayati, near Pharma — Erbil, Iraq",
     "contact.map": "Open in Google Maps",
     "contact.wa": "WhatsApp",
     "contact.ig": "Instagram",
@@ -1725,12 +1745,13 @@ const I18N = {
     var valid = /^https?:\/\//i.test(CONFIG.mapLink || '');
     var href = valid ? CONFIG.mapLink : 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Qalat Shipping');
     $$('#mapLink, .map-link-2').forEach(function (a) { a.href = href; });
-    if (/^https:\/\/(www\.)?google\.[a-z.]+\/maps\/embed/i.test(CONFIG.mapEmbed || '')) {
+    if (/^https:\/\/(www\.)?google\.[a-z.]+\/maps(\/embed|\?.*output=embed)/i.test(CONFIG.mapEmbed || '')) {
+      $('#mapCard').classList.add('has-embed');
       var f = document.createElement('iframe');
       f.src = CONFIG.mapEmbed;
       f.loading = 'lazy';
       f.referrerPolicy = 'no-referrer-when-downgrade';
-      f.title = 'Google Maps — Qalat Shipping';
+      f.title = 'Google Maps — Qalat Shipping, Erbil';
       f.allowFullscreen = true;
       $('#mapCard').appendChild(f);
     }
