@@ -21,6 +21,7 @@ const CONFIG = {
   mapLink: 'https://www.google.com/maps?q=36.2004780,44.0392230',              // office pin (40m St, Brayati, Erbil)
   mapEmbed: 'https://www.google.com/maps?q=36.2004780,44.0392230&z=16&output=embed', // live map inside the contact card ('' = styled card only)
   calcMaxUSD: 100000,         // max amount accepted by the calculator
+  hours: '9:00 – 18:00',      // working hours (days are written in the translations: contact.hoursV)
   defaultLang: 'ku'           // 'ku' | 'ar' | 'en'
 };
 
@@ -117,6 +118,12 @@ const REVIEWS = [
   "image": "https://qalatshipping.com/assets/og-image.jpg",
   "telephone": "+9647746646565",
   "paymentAccepted": "Cash on delivery",
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+    "opens": "09:00",
+    "closes": "18:00"
+  },
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "40m Street, Brayati, near Pharma",
@@ -1222,7 +1229,7 @@ const I18N = {
     "contact.wa": "واتسئاپ",
     "contact.ig": "ئینستاگرام",
     "contact.hours": "کاتی کارکردن",
-    "contact.hoursV": "[شەممە تا پێنجشەممە، 10ی بەیانی تا 10ی شەو]",
+    "contact.hoursV": "شەممە – پێنجشەممە\n{hours}",
     "contact.order": "ئێستا لە واتسئاپ داوا بکە",
 
     "footer.tagline": "لە SHEIN بکڕە، قەڵات بۆت دەگەیەنێت. باشترین گەیاندن لە هەموو عێراق.",
@@ -1373,7 +1380,7 @@ const I18N = {
     "contact.wa": "واتساب",
     "contact.ig": "إنستغرام",
     "contact.hours": "أوقات العمل",
-    "contact.hoursV": "[من السبت إلى الخميس، 10 صباحاً حتى 10 مساءً]",
+    "contact.hoursV": "السبت – الخميس\n{hours}",
     "contact.order": "اطلب الآن عبر واتساب",
 
     "footer.tagline": "تسوّق من SHEIN، وقلات توصلها لبابك. أفضل توصيل في كل العراق.",
@@ -1524,7 +1531,7 @@ const I18N = {
     "contact.wa": "WhatsApp",
     "contact.ig": "Instagram",
     "contact.hours": "Working hours",
-    "contact.hoursV": "[Saturday – Thursday · 10:00 – 22:00]",
+    "contact.hoursV": "Saturday – Thursday · {hours}",
     "contact.order": "Order now on WhatsApp",
 
     "footer.tagline": "Shop SHEIN, delivered by Qalat. The best delivery in all of Iraq.",
@@ -1580,6 +1587,7 @@ const I18N = {
       rate100: nf.format(CONFIG.rate * 100),
       rateEq: L('1$ = ' + nf.format(CONFIG.rate)),
       range: L(CONFIG.deliveryMin + '–' + CONFIG.deliveryMax),
+      hours: L(CONFIG.hours),
       followers: compact(CONFIG.instagramFollowers) + '+',
       views: compact(CONFIG.monthlyViews) + '+',
       ig: '@' + CONFIG.instagram,
