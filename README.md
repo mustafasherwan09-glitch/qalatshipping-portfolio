@@ -10,7 +10,8 @@ One self-contained `index.html` (HTML + CSS + vanilla JS, no build step). Langua
 | --- | --- |
 | Exchange rate, delivery days, phone, Instagram numbers, Google Maps link | `CONFIG` object at the very top |
 | Size chart (cm) | `SIZE_CHART` right below `CONFIG` |
-| All texts (ku / ar / en), offers, FAQ, testimonials, WhatsApp messages | `I18N` object near the end of the file |
+| Customer reviews (real ones only) | `REVIEWS` right below `SIZE_CHART`; the cards appear automatically once you add entries |
+| All texts (ku / ar / en), offers, FAQ, WhatsApp messages | `I18N` object near the end of the file |
 
 - Anything written in `[square brackets]` is a placeholder and is highlighted on the page — replace it with your real info.
 - Map: paste your Google Maps share link into `CONFIG.mapLink`. For a live embedded map, also paste the `src` from Google Maps → Share → *Embed a map* into `CONFIG.mapEmbed`.

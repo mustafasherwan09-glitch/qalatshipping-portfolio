@@ -43,6 +43,13 @@ const SIZE_CHART = {
     ['XXL','110–116','96–102','110–116']
   ]
 };
+
+/* Customer reviews — REAL feedback only (e.g. from Instagram/WhatsApp, with the customer's permission).
+   Write each review in the language the customer used. While this list is empty the cards are hidden
+   and visitors see the "See reviews on Instagram" button instead. Example format:
+   { name: 'Customer name', city: 'Erbil', text: 'What the customer said' },                        */
+const REVIEWS = [
+];
 </script>
 
 <title>قەڵات شیپینگ | Qalat Shipping — SHEIN بۆ هەموو عێراق و کوردستان</title>
@@ -172,6 +179,7 @@ const SIZE_CHART = {
 html[dir="rtl"] { --f-body: var(--f-ar); --f-display: var(--f-ar-display); }
 
 *, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 12px); }
 body {
   margin: 0;
@@ -487,7 +495,7 @@ a.trust-item:hover .trust-num { color: var(--terra); }
 .featured .offer-meta { color: var(--cream); border-color: rgba(247, 243, 236, .22); }
 .offer-meta .ic { width: 18px; height: 18px; color: var(--sand); }
 .offers-cta { text-align: center; margin-top: 30px; }
-@media (min-width: 860px) { .offers-grid { grid-template-columns: repeat(3, 1fr); gap: 22px; } }
+@media (min-width: 760px) { .offers-grid { grid-template-columns: repeat(2, 1fr); gap: 22px; max-width: 920px; margin-inline: auto; } }
 
 /* ---------- Size guide ---------- */
 .size-wrap { max-width: 880px; margin-inline: auto; }
@@ -873,16 +881,9 @@ html[lang="en"] .footer-col h3 { font-family: var(--f-label); letter-spacing: .3
       <p class="lead" data-i18n="offers.lead"></p>
     </header>
 
-    <!-- Edit offer texts in the translations object (keys o1.*, o2.*, o3.*) -->
+    <!-- Edit offer texts in the translations object (keys o2.*, o3.*) -->
     <div class="offers-grid stagger">
       <article class="offer featured on-dark">
-        <span class="offer-tag" data-i18n="o1.tag"></span>
-        <span class="offer-big" dir="ltr" data-i18n="o1.big"></span>
-        <h3 data-i18n="o1.t"></h3>
-        <p data-i18n="o1.d"></p>
-        <span class="offer-meta"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg><span data-i18n="o1.m"></span></span>
-      </article>
-      <article class="offer">
         <span class="offer-tag" data-i18n="o2.tag"></span>
         <span class="offer-big" dir="ltr">100%</span>
         <h3 data-i18n="o2.t"></h3>
@@ -958,7 +959,7 @@ html[lang="en"] .footer-col h3 { font-family: var(--f-label); letter-spacing: .3
 </section>
 
 <!-- ============================== FEEDBACK ============================== -->
-<!-- PLACEHOLDERS: replace with real customer feedback (keys fb.*). Do not publish invented reviews. -->
+<!-- Real customer reviews only: add them to REVIEWS at the top of the file. -->
 <section class="section" id="feedback" aria-labelledby="fbTitle">
   <div class="container">
     <header class="section-head reveal">
@@ -967,26 +968,8 @@ html[lang="en"] .footer-col h3 { font-family: var(--f-label); letter-spacing: .3
       <h2 id="fbTitle" data-i18n="fb.title"></h2>
       <p class="lead" data-i18n="fb.lead"></p>
     </header>
-    <div class="fb-grid stagger">
-      <figure class="fb-card" style="margin:0">
-        <span class="fb-badge" data-i18n="fb.badge"></span>
-        <span class="fb-quote" aria-hidden="true">&ldquo;</span>
-        <blockquote class="fb-text" style="margin:0" data-i18n="fb.text"></blockquote>
-        <figcaption class="fb-person"><span class="fb-avatar"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg></span><span><span class="fb-name" data-i18n="fb.name"></span><span class="fb-city" data-i18n="fb.city"></span></span></figcaption>
-      </figure>
-      <figure class="fb-card" style="margin:0">
-        <span class="fb-badge" data-i18n="fb.badge"></span>
-        <span class="fb-quote" aria-hidden="true">&ldquo;</span>
-        <blockquote class="fb-text" style="margin:0" data-i18n="fb.text"></blockquote>
-        <figcaption class="fb-person"><span class="fb-avatar"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg></span><span><span class="fb-name" data-i18n="fb.name"></span><span class="fb-city" data-i18n="fb.city"></span></span></figcaption>
-      </figure>
-      <figure class="fb-card" style="margin:0">
-        <span class="fb-badge" data-i18n="fb.badge"></span>
-        <span class="fb-quote" aria-hidden="true">&ldquo;</span>
-        <blockquote class="fb-text" style="margin:0" data-i18n="fb.text"></blockquote>
-        <figcaption class="fb-person"><span class="fb-avatar"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg></span><span><span class="fb-name" data-i18n="fb.name"></span><span class="fb-city" data-i18n="fb.city"></span></span></figcaption>
-      </figure>
-    </div>
+    <!-- Cards are generated from the REVIEWS list at the top of this file (hidden while it is empty) -->
+    <div class="fb-grid stagger" id="fbGrid" hidden></div>
     <p class="fb-cta reveal"><a class="btn btn-ghost" data-ig href="https://www.instagram.com/qalat.shipping/" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-ig"/></svg><span data-i18n="fb.cta"></span></a></p>
   </div>
 </section>
@@ -1184,11 +1167,6 @@ const I18N = {
 
     "offers.title": "ئۆفەرە تایبەتەکان",
     "offers.lead": "ئۆفەرەکانمان بەردەوام نوێ دەبنەوە؛ لە ئینستاگرام فۆڵۆمان بکە بۆ ئەوەی هیچیان لەدەست نەدەیت.",
-    "o1.tag": "ئۆفەری ئەم مانگە",
-    "o1.big": "[X%]",
-    "o1.t": "[ناونیشانی ئۆفەر]",
-    "o1.d": "[وردەکاریی ئۆفەرەکەت لێرە بنووسە — بۆ نموونە: داشکاندنی تایبەت بۆ یەکەم داواکاری]",
-    "o1.m": "[بەرواری کۆتایی ئۆفەر]",
     "o2.tag": "هەمیشە",
     "o2.t": "داشکاندنەکانی SHEIN بە تەواوی بۆ تۆ",
     "o2.d": "هەر کۆد و داشکاندنێک لە SHEIN هەبێت، سەدا سەد بۆ تۆ هەژمار دەکرێت و هیچی لێ کەم ناکەینەوە.",
@@ -1197,7 +1175,7 @@ const I18N = {
     "o3.big": "خۆڕایی",
     "o3.t": "گەیاندنی خۆڕایی بۆ هەموو عێراق",
     "o3.d": "لە زاخۆوە تا بەسرە، کاڵاکانت بێ تێچووی گواستنەوە دەگەنە بەردەم دەرگاکەت.",
-    "o3.m": "[کەمترین بڕی داواکاری، ئەگەر هەیە]",
+    "o3.m": "بێ کەمترین بڕی داواکاری",
     "offers.cta": "پرسیار دەربارەی ئۆفەرەکان",
 
     "size.title": "ڕێبەری قەبارە",
@@ -1217,10 +1195,6 @@ const I18N = {
 
     "fb.title": "ڕای کڕیارەکانمان",
     "fb.lead": "ڕا و وێنەی داواکارییەکانی کڕیارانمان لە ئینستاگرامەکەماندا ببینە.",
-    "fb.badge": "نموونە",
-    "fb.text": "[ڕای کڕیار لێرە دابنێ]",
-    "fb.name": "[ناوی کڕیار]",
-    "fb.city": "[شار]",
     "fb.cta": "ڕاکان لە ئینستاگرام ببینە",
 
     "faq.title": "پرسیارە باوەکان",
@@ -1344,11 +1318,6 @@ const I18N = {
 
     "offers.title": "عروض خاصة",
     "offers.lead": "عروضنا تتجدد باستمرار؛ تابعنا على إنستغرام حتى لا يفوتك أي عرض.",
-    "o1.tag": "عرض الشهر",
-    "o1.big": "[X%]",
-    "o1.t": "[عنوان العرض]",
-    "o1.d": "[اكتب تفاصيل العرض هنا — مثلاً: خصم خاص على أول طلب]",
-    "o1.m": "[تاريخ انتهاء العرض]",
     "o2.tag": "دائماً",
     "o2.t": "خصومات SHEIN كاملةً لك",
     "o2.d": "أي كود أو خصم متاح في SHEIN يُحتسب لك 100% — لا نقتطع منه شيئاً.",
@@ -1357,7 +1326,7 @@ const I18N = {
     "o3.big": "مجاني",
     "o3.t": "شحن مجاني لكل العراق",
     "o3.d": "من زاخو إلى البصرة، تصلك طلبيتك حتى باب البيت بدون أي تكلفة شحن.",
-    "o3.m": "[الحد الأدنى للطلب إن وُجد]",
+    "o3.m": "بدون حد أدنى للطلب",
     "offers.cta": "استفسر عن العروض",
 
     "size.title": "دليل المقاسات",
@@ -1377,10 +1346,6 @@ const I18N = {
 
     "fb.title": "آراء زبائننا",
     "fb.lead": "شاهد آراء زبائننا وصور طلباتهم على حسابنا في إنستغرام.",
-    "fb.badge": "نموذج",
-    "fb.text": "[ضع رأي الزبون هنا]",
-    "fb.name": "[اسم الزبون]",
-    "fb.city": "[المدينة]",
     "fb.cta": "شاهد الآراء على إنستغرام",
 
     "faq.title": "الأسئلة الشائعة",
@@ -1504,11 +1469,6 @@ const I18N = {
 
     "offers.title": "Special offers",
     "offers.lead": "Our offers change often — follow us on Instagram so you never miss one.",
-    "o1.tag": "Offer of the month",
-    "o1.big": "[X%]",
-    "o1.t": "[Offer title]",
-    "o1.d": "[Describe your offer here — e.g. a special discount on your first order]",
-    "o1.m": "[Offer end date]",
     "o2.tag": "Always",
     "o2.t": "Every SHEIN discount, fully yours",
     "o2.d": "Any SHEIN coupon or sale price counts 100% in your favour — we never take a cut.",
@@ -1517,7 +1477,7 @@ const I18N = {
     "o3.big": "Free",
     "o3.t": "Free delivery across Iraq",
     "o3.d": "From Zakho to Basra, your order reaches your door with zero shipping cost.",
-    "o3.m": "[Minimum order, if any]",
+    "o3.m": "No minimum order",
     "offers.cta": "Ask about our offers",
 
     "size.title": "Size guide",
@@ -1537,10 +1497,6 @@ const I18N = {
 
     "fb.title": "What our customers say",
     "fb.lead": "See customer reviews and order photos on our Instagram.",
-    "fb.badge": "Placeholder",
-    "fb.text": "[Customer feedback goes here]",
-    "fb.name": "[Customer name]",
-    "fb.city": "[City]",
     "fb.cta": "See reviews on Instagram",
 
     "faq.title": "Frequently asked questions",
@@ -1794,6 +1750,27 @@ const I18N = {
     });
   }
 
+  /* ---------------- Customer reviews (from REVIEWS) ---------------- */
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function renderReviews() {
+    var grid = $('#fbGrid');
+    var list = (typeof REVIEWS !== 'undefined' && Array.isArray(REVIEWS)) ? REVIEWS.filter(function (r) { return r && r.text; }) : [];
+    if (!grid || !list.length) return;
+    grid.innerHTML = list.map(function (r) {
+      return '<figure class="fb-card" style="margin:0" dir="auto">' +
+        '<span class="fb-quote" aria-hidden="true">&ldquo;</span>' +
+        '<blockquote class="fb-text" style="margin:0" dir="auto">' + esc(r.text) + '</blockquote>' +
+        '<figcaption class="fb-person"><span class="fb-avatar"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg></span>' +
+        '<span><span class="fb-name" dir="auto">' + esc(r.name) + '</span>' +
+        (r.city ? '<span class="fb-city" dir="auto">' + esc(r.city) + '</span>' : '') + '</span></figcaption></figure>';
+    }).join('');
+    grid.hidden = false;
+  }
+
   /* ---------------- Price calculator ---------------- */
   var usdIn = $('#usd'), usdWrap = $('#usdWrap'), iqdOut = $('#iqdOut'), usdOut = $('#usdOut'),
       calcErr = $('#calcErr'), calcWa = $('#calcWa');
@@ -1949,6 +1926,7 @@ const I18N = {
   /* ---------------- Init ---------------- */
   renderCitadels();
   renderSizes();
+  renderReviews();
   fillConfig();
   setupMap();
   setupTabs();
